@@ -10,7 +10,7 @@ export default function Capsules() {
   useEffect(() => {
     // Fetch SpaceX capsule data from the API and update the state.
     const fetchCapsules = async () => {
-      const res = await fetch("https://api.spacexdata.com/v4/capsules")
+      const res = await fetch("https://api.spacexdata.com/v3/capsules")
       const data = await res.json()
       setCapsules(data)
     }
@@ -29,11 +29,11 @@ export default function Capsules() {
     // Sort capsules by original launch date in ascending or descending order.
     if (e.target.value === "assending") {
       const assending = capsules.sort((a, b) => new Date(a.original_launch) - new Date(b.original_launch))
-      setFilteredData(assending)
+      setFilteredData([...assending])
       console.log(assending)
     } else {
-      const decending = capsules.sort((a, b) => new Date(a.original_launch) - new Date(b.original_launch))
-      setFilteredData(decending)
+      const decending = capsules.sort((a, b) => new Date(b.original_launch) - new Date(a.original_launch)) 
+      setFilteredData([...decending])
       console.log(decending)
     }
   }
@@ -89,7 +89,7 @@ export default function Capsules() {
                   type,
                   status,
                   serial,
-                  launches,
+                  missions,
                   last_update,
                   land_landings,
                   water_landings,
@@ -103,7 +103,7 @@ export default function Capsules() {
                       </span>
                     </h2>
                     <ul>
-                      <li className="mb-1">{launches.length} launches</li>
+                      <li className="mb-1">{missions.length} launches</li>
                       <li className="mb-1">{land_landings} land landings</li>
                       <li className="mb-1">{water_landings} water landings</li>
                       <li className="mb-1">Reused {reuse_count} times</li>
@@ -125,7 +125,7 @@ export default function Capsules() {
                   type,
                   status,
                   serial,
-                  launches,
+                  missions,
                   last_update,
                   land_landings,
                   water_landings,
@@ -139,7 +139,7 @@ export default function Capsules() {
                       </span>
                     </h2>
                     <ul>
-                      <li className="mb-1">{launches.length} launches</li>
+                      <li className="mb-1">{missions.length} launches</li>
                       <li className="mb-1">{land_landings} land landings</li>
                       <li className="mb-1">{water_landings} water landings</li>
                       <li className="mb-1">Reused {reuse_count} times</li>

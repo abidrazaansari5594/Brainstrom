@@ -6,7 +6,7 @@ export default function LoadingState() {
       <div className="spinner">
         <article></article>
         <p className="text-white opacity-75 mt-5">
-          Load ho rha hai...!
+          Loading... !
         </p>
       </div>
     </>
