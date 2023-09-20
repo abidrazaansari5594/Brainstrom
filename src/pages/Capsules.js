@@ -3,13 +3,12 @@ import { Loading } from "../components"
 
 export default function Capsules() {
   const [capsules, setCapsules] = useState([])
-  const [selectedCriteria, setSelectedCriteria] = useState('status');
   const [filteredData, setFilteredData] = useState([]);
-  const [dropdownstate, setDropdownState] = useState({ status: false, type: false, originallaunch: false })
 
 
 
   useEffect(() => {
+    // Fetch SpaceX capsule data from the API and update the state.
     const fetchCapsules = async () => {
       const res = await fetch("https://api.spacexdata.com/v4/capsules")
       const data = await res.json()
@@ -20,37 +19,29 @@ export default function Capsules() {
   }, [])
 
   const FilterCapsuleStatus = (e) => {
-    const filterData = capsules.filter(item => e.target.value == "allstatus" ? item : item.status == e.target.value)
+    // Filter capsules based on status when the status dropdown changes.
+    const filterData = capsules.filter(item => e.target.value === "allstatus" ? item : item.status === e.target.value)
     setFilteredData(filterData)
-  }
+  } 
 
-  
-  const SortCapsule_Original_Launch=(e)=>{
-    if(e.target.value=="assending"){
-      const assending=capsules.sort((a,b)=> new Date(a.original_launch) - new Date(b.original_launch))
+
+  const SortCapsule_Original_Launch = (e) => {
+    // Sort capsules by original launch date in ascending or descending order.
+    if (e.target.value === "assending") {
+      const assending = capsules.sort((a, b) => new Date(a.original_launch) - new Date(b.original_launch))
       setFilteredData(assending)
       console.log(assending)
-    }else{
-      const decending = capsules.sort((a,b)=> new Date(a.original_launch) - new Date(b.original_launch))
+    } else {
+      const decending = capsules.sort((a, b) => new Date(a.original_launch) - new Date(b.original_launch))
       setFilteredData(decending)
       console.log(decending)
-  }
-} 
-
-  const FilterCapsuleType=(e)=>{
-    const filterData = capsules.filter(item => e.target.value == "alltype" ? item : item.type == e.target.value)
-    setFilteredData(filterData)
-  }
-  const DropDownHandler = (type) => {
-    if (type == "status") {
-      setDropdownState({ status: true, type: false, originallaunch: false })
-    } else if (type == "type") {
-      setDropdownState({ status: false, type: true, originallaunch: false })
-    } else if (type == "originallaunch") {
-      setDropdownState({ status: false, type: false, originallaunch: true })
-    } else {
-      setDropdownState({ status: false, type: false, originallaunch: false })
     }
+  }
+
+  const FilterCapsuleType = (e) => {
+    // Filter capsules based on type when the type dropdown changes.
+    const filterData = capsules.filter(item => e.target.value === "alltype" ? item : item.type === e.target.value)
+    setFilteredData(filterData)
   }
 
   return (
@@ -74,9 +65,9 @@ export default function Capsules() {
             <div>
               <label htmlFor="capsule" className="text-white ml-4">Capsule Types:</label>
               <select id="capsule" onChange={FilterCapsuleType}>
-              <option value="alltype">All Type</option>
-                {[...new Set(capsules.map(item=>item.type))].map(data=>
-                <option key={data} value={data}>{data}</option>)}
+                <option value="alltype">All Type</option>
+                {[...new Set(capsules.map(item => item.type))].map(data =>
+                  <option key={data} value={data}>{data}</option>)}
               </select>
             </div>
 
@@ -91,7 +82,7 @@ export default function Capsules() {
           </div>
 
           <div className="max-width grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 px-5">
-            {filteredData.length == 0 ? <>
+            {filteredData.length === 0 ? <>
               {capsules.map(
                 ({
                   id,

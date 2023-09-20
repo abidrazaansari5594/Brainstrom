@@ -3,6 +3,7 @@ import { Loading } from "../components"
 
 export default function Cores() {
   const [cores, setCores] = useState([])
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     const fetchCores = async () => {
@@ -14,6 +15,10 @@ export default function Cores() {
     fetchCores()
   }, [])
 
+  const FilterCapsuleCore = (e) => {
+    const filterData = cores.filter(item => e.target.value === "allcores" ? item : item.status === e.target.value)
+    setFilteredData(filterData)
+  }
   return (
     <>
       {!cores ? (
@@ -22,37 +27,78 @@ export default function Cores() {
         <section className="py-32">
           <h1 className="heading text-center mb-10">Cores</h1>
 
+          <div className="flex justify-center items-center">
+            <label htmlFor="core" className="text-white ml-4">Cores :</label>
+            <select id="core" onChange={FilterCapsuleCore}>
+              <option value="allcores">All Core</option>
+              {[...new Set(cores.map(item => item.status))].map(data =>
+                <option key={data} value={data}>{data}</option>)}
+            </select>
+          </div>
+
           <div className="max-width grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 px-5">
-            {cores.map(
-              ({
-                id,
-                status,
-                serial,
-                launches,
-                last_update,
-                asds_landings,
-                rtls_landings,
-                reuse_count,
-              }) => (
-                <article key={id} className="articles">
-                  <h2 className="font-bold text-xl mb-5">{serial}</h2>
+            {filteredData.length === 0 ? <>
+              {cores.map(
+                ({
+                  id,
+                  status,
+                  serial,
+                  launches,
+                  last_update,
+                  asds_landings,
+                  rtls_landings,
+                  reuse_count,
+                }) => (
+                  <article key={id} className="articles">
+                    <h2 className="font-bold text-xl mb-5">{serial}</h2>
 
-                  <ul>
-                    <li className="mb-1">Reused {reuse_count} times</li>
-                    <li className="mb-1">{launches.length} launches</li>
-                    <li className="mb-1">{asds_landings} ASDS landings</li>
-                    <li className="mb-1">{rtls_landings} RTLS landings</li>
-                    {status === "active" ? (
-                      <li className="text-emerald-500">Active</li>
-                    ) : (
-                      <li className="text-rose-500 capitalize">{status}</li>
-                    )}
-                  </ul>
+                    <ul>
+                      <li className="mb-1">Reused {reuse_count} times</li>
+                      <li className="mb-1">{launches.length} launches</li>
+                      <li className="mb-1">{asds_landings} ASDS landings</li>
+                      <li className="mb-1">{rtls_landings} RTLS landings</li>
+                      {status === "active" ? (
+                        <li className="text-emerald-500">Active</li>
+                      ) : (
+                        <li className="text-rose-500 capitalize">{status}</li>
+                      )}
+                    </ul>
 
-                  <p className="mt-5 opacity-75">{last_update}</p>
-                </article>
-              )
-            )}
+                    <p className="mt-5 opacity-75">{last_update}</p>
+                  </article>
+                )
+              )}</> : <>
+              {filteredData.map(
+                ({
+                  id,
+                  status,
+                  serial,
+                  launches,
+                  last_update,
+                  asds_landings,
+                  rtls_landings,
+                  reuse_count,
+                }) => (
+                  <article key={id} className="articles">
+                    <h2 className="font-bold text-xl mb-5">{serial}</h2>
+
+                    <ul>
+                      <li className="mb-1">Reused {reuse_count} times</li>
+                      <li className="mb-1">{launches.length} launches</li>
+                      <li className="mb-1">{asds_landings} ASDS landings</li>
+                      <li className="mb-1">{rtls_landings} RTLS landings</li>
+                      {status === "active" ? (
+                        <li className="text-emerald-500">Active</li>
+                      ) : (
+                        <li className="text-rose-500 capitalize">{status}</li>
+                      )}
+                    </ul>
+
+                    <p className="mt-5 opacity-75">{last_update}</p>
+                  </article>
+                )
+              )}
+            </>}
           </div>
         </section>
       )}

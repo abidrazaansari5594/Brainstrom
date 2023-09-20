@@ -1,80 +1,82 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { SiSpacex } from "react-icons/si"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
 
+  
+
   return (
     <>
       <header className="absolute flex items-center justify-between px-5 w-full">
         <div>
-          <Link to="/">
+          <NavLink to="/">
             <SiSpacex className="text-8xl text-white" />
-          </Link>
+          </NavLink>
         </div>
 
         <nav className={`${isOpen ? "open" : ""}`}>
           <ul>
-            <li>
-              <Link to="/capsules" className="text-white text-sm">
+            <li className="hover:scale-110">
+              <NavLink to="/capsules" className={({ isActive }) => (isActive ? 'active-link' : 'text-white text-sm')} >
                 Capsules
-              </Link>
+              </NavLink>
             </li>
-            <li>
-              <Link to="/cores" className="text-white text-sm">
+            <li className="hover:scale-110">
+              <NavLink to="/cores" className={({ isActive }) => (isActive ? 'active-link' : 'text-white text-sm')}>
                 Cores
-              </Link>
+              </NavLink>
             </li>
-            <li>
-              <Link to="/crew" className="text-white text-sm">
+            <li className="hover:scale-110">
+              <NavLink to="/crew" className={({ isActive }) => (isActive ? 'active-link' : 'text-white text-sm')}>
                 Crew
-              </Link>
+              </NavLink>
             </li>
-            <li>
-              <Link to="/dragons" className="text-white text-sm">
+            <li className="hover:scale-110">
+              <NavLink to="/dragons" className={({ isActive }) => (isActive ? 'active-link' : 'text-white text-sm')}>
                 Dragons
-              </Link>
+              </NavLink>
             </li>
-            <li>
-              <Link to="/landpads" className="text-white text-sm">
+            <li className="hover:scale-110">
+              <NavLink to="/landpads" className={({ isActive }) => (isActive ? 'active-link' : 'text-white text-sm')}>
                 Landpads
-              </Link>
+              </NavLink>
             </li>
-            <li>
-              <Link to="/launches" className="text-white text-sm">
+            <li className="hover:scale-110">
+              <NavLink to="/launches" className={({ isActive }) => (isActive ? 'active-link' : 'text-white text-sm')}>
                 Launches
-              </Link>
+              </NavLink>
             </li>
-            <li>
-              <Link to="/launchpads" className="text-white text-sm">
+            <li className="hover:scale-110">
+              <NavLink to="/launchpads" className={({ isActive }) => (isActive ? 'active-link' : 'text-white text-sm')}>
                 Launchpads
-              </Link>
+              </NavLink>
             </li>
-            <li>
-              <Link to="/payloads" className="text-white text-sm">
+            <li className="hover:scale-110">
+              <NavLink to="/payloads" className={({ isActive }) => (isActive ? 'active-link' : 'text-white text-sm')}>
                 Payloads
-              </Link>
+              </NavLink>
             </li>
-            <li>
-              <Link to="/roadster" className="text-white text-sm">
+            <li className="hover:scale-110">
+              <NavLink to="/roadster" className={({ isActive }) => (isActive ? 'active-link' : 'text-white text-sm')}>
                 Roadster
-              </Link>
+              </NavLink>
             </li>
-            <li>
-              <Link to="/rockets" className="text-white text-sm">
+            <li className="hover:scale-110">
+              <NavLink to="/rockets" className={({ isActive }) => (isActive ? 'active-link' : 'text-white text-sm')}>
                 Rockets
-              </Link>
+              </NavLink>
             </li>
-            <li>
-              <Link to="/ships" className="text-white text-sm">
+            <li className="hover:scale-110">
+              <NavLink to="/ships" className={({ isActive }) => (isActive ? 'active-link' : 'text-white text-sm')}>
                 Ships
-              </Link>
+              </NavLink>
             </li>
-            <li>
-              <Link to="/starlink" className="text-white text-sm">
+            <li className="hover:scale-110">
+              <NavLink to="/starlink" className={({ isActive }) => (isActive ? 'active-link' : 'text-white text-sm')}>
                 Starlink
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>
