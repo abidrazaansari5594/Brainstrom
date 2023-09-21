@@ -18,14 +18,14 @@ export default function Capsules() {
     fetchCapsules()
   }, [])
 
-  const FilterCapsuleStatus = (e) => {
+  const filterCapsuleStatus = (e) => {
     // Filter capsules based on status when the status dropdown changes.
     const filterData = capsules.filter(item => e.target.value === "allstatus" ? item : item.status === e.target.value)
     setFilteredData(filterData)
   } 
 
 
-  const SortCapsule_Original_Launch = (e) => {
+  const sortCapsuleOriginalLaunch = (e) => {
     // Sort capsules by original launch date in ascending or descending order.
     if (e.target.value === "assending") {
       const assending = capsules.sort((a, b) => new Date(a.original_launch) - new Date(b.original_launch))
@@ -38,7 +38,7 @@ export default function Capsules() {
     }
   }
 
-  const FilterCapsuleType = (e) => {
+  const filterCapsuleType = (e) => {
     // Filter capsules based on type when the type dropdown changes.
     const filterData = capsules.filter(item => e.target.value === "alltype" ? item : item.type === e.target.value)
     setFilteredData(filterData)
@@ -55,7 +55,7 @@ export default function Capsules() {
           <div className="flex justify-center items-center">
             <div>
               <label htmlFor="capsule" className="text-white ml-4">Capsule Status:</label>
-              <select id="capsule" onChange={FilterCapsuleStatus}>
+              <select id="capsule" onChange={filterCapsuleStatus}>
                 <option value="allstatus">All Status</option>
                 <option value="active">Active</option>
                 <option value="retired">Retired</option>
@@ -64,7 +64,7 @@ export default function Capsules() {
 
             <div>
               <label htmlFor="capsule" className="text-white ml-4">Capsule Types:</label>
-              <select id="capsule" onChange={FilterCapsuleType}>
+              <select id="capsule" onChange={filterCapsuleType}>
                 <option value="alltype">All Type</option>
                 {[...new Set(capsules.map(item => item.type))].map(data =>
                   <option key={data} value={data}>{data}</option>)}
@@ -73,7 +73,7 @@ export default function Capsules() {
 
             <div>
               <label htmlFor="originallaunch" className="text-white ml-4">Original Launch:</label>
-              <select id="originallaunch" onChange={SortCapsule_Original_Launch}>
+              <select id="originallaunch" onChange={sortCapsuleOriginalLaunch}>
                 <option value="assending">Assending</option>
                 <option value="decending">Decending</option>
               </select>

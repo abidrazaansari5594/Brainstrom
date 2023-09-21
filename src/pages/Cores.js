@@ -15,7 +15,7 @@ export default function Cores() {
     fetchCores()
   }, [])
 
-  const FilterCapsuleCore = (e) => {
+  const filterCapsuleCore = (e) => {
     const filterData = cores.filter(item => e.target.value === "allcores" ? item : item.status === e.target.value)
     setFilteredData(filterData)
   }
@@ -29,7 +29,7 @@ export default function Cores() {
 
           <div className="flex justify-center items-center">
             <label htmlFor="core" className="text-white ml-4">Cores :</label>
-            <select id="core" onChange={FilterCapsuleCore}>
+            <select id="core" onChange={filterCapsuleCore}>
               <option value="allcores">All Core</option>
               {[...new Set(cores.map(item => item.status))].map(data =>
                 <option key={data} value={data}>{data}</option>)}
